@@ -1,4 +1,4 @@
-# CompanyHunt Service.
+# CompanyHunt Service
 
 A service that provides a comprehensive list of companies with detailed information about them. It is designed for job seekers in the IT industry, allowing them to access a database of IT companies and directly reach out to potential employers without waiting for job postings.
 
