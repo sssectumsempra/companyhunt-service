@@ -29,20 +29,16 @@ public class CompanyHuntController {
     private final CompanyService service;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<CompanyDto> getById(@PathVariable("id") Long id) {
         log.info("Received request to get company by id: {}", id);
         return ResponseEntity.ok(service.getById(id));
     }
 
     @GetMapping("/by-name")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CompanyDto> getByName(@RequestParam("name") String name) {
         log.info("Received request to get company by name: {}", name);
         return ResponseEntity.ok(service.getByName(name));
     }
-
-    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 
     @GetMapping
     public ResponseEntity<List<CompanyDto>> getAll() {
