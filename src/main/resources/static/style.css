@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin-top: 30px;
+}
+
+table th {
+    background-color: #f8f9fa;
+}
+
+table td {
+    text-align: center;
+}
+
+button {
+    margin-top: 20px;
+}
+
+#searchByName {
+    width: 60%;
+    margin-right: 10px;
+}
