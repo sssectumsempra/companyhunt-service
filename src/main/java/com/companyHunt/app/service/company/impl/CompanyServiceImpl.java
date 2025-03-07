@@ -11,6 +11,7 @@ import com.companyHunt.app.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyMapper mapper;
 
+    @Transactional(readOnly = true)
     @Override
     public CompanyDto getById(Long id) {
         Optional<Company> company = repository.findById(id);
@@ -34,6 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
         return mapper.map(company.get());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CompanyDto getByName(String name) {
         Company company = repository.findByName(name);
@@ -43,6 +46,7 @@ public class CompanyServiceImpl implements CompanyService {
         return mapper.map(company);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CompanyDto> getAll() {
         List<CompanyDto> companies = repository.findAll().stream()
@@ -54,6 +58,7 @@ public class CompanyServiceImpl implements CompanyService {
         return companies;
     }
 
+    @Transactional
     @Override
     public void save(CompanyCreateDto dto) {
         Company company = mapper.map(dto);
@@ -68,16 +73,22 @@ public class CompanyServiceImpl implements CompanyService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteByName(String name) {
         log.warn("Received request to delete for name: {}", name);
         repository.deleteByName(name);
     }
 
+    @Transactional
     @Override
     public void updateById(Long id, CompanyUpdateDto dto) {
         log.warn("Received request to update for id: {}", id);
         Optional<Company> company = repository.findById(id);
+        if (company.isEmpty()) {
+            log.warn("No companies found for id: {}", id);
+            throw new CompanyNotFoundException("Company not found for id: " + id);
+        }
         mapper.update(dto, company.get());
         repository.save(company.get());
     }
