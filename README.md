@@ -16,7 +16,7 @@ Additionally, the platform offers a collection of informative articles to help u
 
 ## Program main functional:
 
-### ExchangeRateController methods:
+### CompanyHunt Controller methods:
 - Get companies list
 - Get company by id
 - Get company by name
